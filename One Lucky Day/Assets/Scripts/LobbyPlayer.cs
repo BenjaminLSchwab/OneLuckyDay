@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class LobbyPlayer : MonoBehaviour
 {
-    private string selectedGame = "";
-    Rigidbody2D rb;
     [SerializeField] float speed = 1f;
+    
+    Rigidbody2D rb;
+    GameManager gameManager;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -18,6 +20,10 @@ public class LobbyPlayer : MonoBehaviour
     {
         Vector3 force = new Vector3(Input.GetAxis("Horizontal"), 0);
         rb.velocity = force * speed;
+        if (Input.GetButtonDown("Fire1"))
+        {
+            gameManager.LoadGame();
+        }
     }
 
 
