@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     public void SelectGame(string game)
     {
-        selectedGame = game;
-        Debug.Log("Game is now " + selectedGame);
+        //selectedGame = game;
+        //Debug.Log("Game is now " + selectedGame);
     }
 }
