@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Booth : MonoBehaviour
+public class IndicatorManager : MonoBehaviour
 {
-    [SerializeField] string gameName = "";
-    GameManager gameManager;
+    [SerializeField] List<GameObject> indicators;
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        
     }
 
     // Update is called once per frame
@@ -18,9 +17,11 @@ public class Booth : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void TurnOffAllIndicators()
     {
-        //gameManager
+        foreach (var indicator in indicators)
+        {
+            indicator.SetActive(false);
+        }
     }
-
 }

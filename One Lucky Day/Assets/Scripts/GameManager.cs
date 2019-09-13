@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private string selectedGame = "";
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     public void SelectGame(string game)
     {
-        //selectedGame = game;
-        //Debug.Log("Game is now " + selectedGame);
+        selectedGame = game;
+        Debug.Log("Game is now " + selectedGame);
     }
 }
