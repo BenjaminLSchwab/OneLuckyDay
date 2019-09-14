@@ -26,7 +26,7 @@ public class TugOfWarOpponent : MonoBehaviour
         if(tugTimer <= 0)
         {
         	tugTimer = tugDelay;
-        	rope.SendMessage("Tug", tugStrength);
+        	rope.SendMessage("Tug", tugStrength + Random.Range(0,1));
         }
     }
 }

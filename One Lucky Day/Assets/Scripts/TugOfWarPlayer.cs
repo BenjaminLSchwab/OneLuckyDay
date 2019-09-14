@@ -11,10 +11,12 @@ public class TugOfWarPlayer : MonoBehaviour
 
 	//cached component reference
 	GameObject rope;
+    TugOfWarEventManager eventManager;
 
     void Start()
     {
         rope = FindObjectOfType<Rope>().gameObject;
+        eventManager = FindObjectOfType<TugOfWarEventManager>();
     }
 
     void Update()
@@ -28,5 +30,12 @@ public class TugOfWarPlayer : MonoBehaviour
     	{
     		rope.SendMessage("Tug", tugStrength*-1);
     	}
+        else if(Input.GetButtonDown("Fire2"))
+        {
+            if(eventManager.eventActive)
+            {
+                eventManager.SendMessage("Respond");
+            }
+        }
     }
 }

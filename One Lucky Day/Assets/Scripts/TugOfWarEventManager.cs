@@ -1,0 +1,63 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TugOfWarEventManager : MonoBehaviour
+{
+	//config params
+	[SerializeField] float eventDelay;
+	[SerializeField] float eventDuration;
+	[SerializeField] float advantage;
+
+	//state
+	float timer;
+	public bool eventActive;
+
+	//cached component reference
+	GameObject rope;
+	[SerializeField] GameObject sprite;
+
+    void Start()
+    {
+    	sprite.SetActive(false);
+        rope = FindObjectOfType<Rope>().gameObject;
+        timer = eventDelay;
+    }
+
+    void Update()
+    {
+    	if(!eventActive)
+    	{
+    		timer -= Time.deltaTime;	
+    	}
+        if(timer <= 0)
+        {
+        	timer = eventDelay;
+        	var rand = Random.Range(1,2);
+        	if(rand == 1)
+        	{
+        		StartCoroutine(Event());
+        	}
+        }
+    }
+
+    IEnumerator Event()
+    {
+    	sprite.SetActive(true);
+    	eventActive = true;
+    	yield return new WaitForSeconds(eventDuration);
+    	if(eventActive)
+    	{
+    		sprite.SetActive(false);	
+    		eventActive = false;
+    		rope.SendMessage("Tug", advantage);
+    	}
+    }
+
+    public void Respond()
+    {
+    	sprite.SetActive(false);
+    	eventActive = false;
+    	rope.SendMessage("Tug", advantage*-1);
+    }
+}
