@@ -48,39 +48,36 @@ public class CockFightFighter : MonoBehaviour
     			SetMode("run");
     		}
     	}
-    	if(mode == "charge" || mode == "run")
-    	{
-			moveTimer -= Time.deltaTime;
-	        if(moveTimer <= 0)
-	        {
-	        	moveTimer = moveDelay;
-	        	Vector2 directionToOpponent = (opponent.transform.position - transform.position).normalized;
-				if(mode == "charge")
+		moveTimer -= Time.deltaTime;
+        if(moveTimer <= 0)
+        {
+        	moveTimer = moveDelay;
+        	Vector2 directionToOpponent = (opponent.transform.position - transform.position).normalized;
+			if(mode == "charge")
+			{
+				float distanceToOpponent = (opponent.transform.position - transform.position).magnitude;
+				if(distanceToOpponent > stoppingDistance)
 				{
-					float distanceToOpponent = (opponent.transform.position - transform.position).magnitude;
-					if(distanceToOpponent > stoppingDistance)
+					rb.AddForce((directionToOpponent*moveSpeed)+moveOffset);	
+				}	
+				if(distanceToOpponent <= attackRange)
+				{
+					if(Time.realtimeSinceStartup - lastAttackTime >= attackDelay)
 					{
-						rb.AddForce((directionToOpponent*moveSpeed)+moveOffset);	
-					}	
-					if(distanceToOpponent <= attackRange)
-					{
-						if(Time.realtimeSinceStartup - lastAttackTime >= attackDelay)
+						lastAttackTime = Time.realtimeSinceStartup;
+						var rand = Random.Range(1,3);
+						if(rand == 1)
 						{
-							lastAttackTime = Time.realtimeSinceStartup;
-							var rand = Random.Range(1,3);
-							if(rand == 1)
-							{
-								opponent.SendMessage("Damage", damage);	
-							}
+							opponent.SendMessage("Damage", damage);	
 						}
 					}
 				}
-	        	else if(mode == "run")
-	        	{
-	        		rb.AddForce((directionToOpponent*moveSpeed*-1)+moveOffset);	
-	        	}
-	        }
-    	}
+			}
+        	else if(mode == "run")
+        	{
+        		rb.AddForce((directionToOpponent*moveSpeed*-1)+moveOffset);	
+        	}
+        }
     }
 
     void SetMode(string newMode)
