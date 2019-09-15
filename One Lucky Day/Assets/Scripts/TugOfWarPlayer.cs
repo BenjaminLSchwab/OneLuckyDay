@@ -12,6 +12,7 @@ public class TugOfWarPlayer : MonoBehaviour
 	//cached component reference
 	GameObject rope;
     TugOfWarEventManager eventManager;
+    [SerializeField] Sprite deadSprite;
 
     void Start()
     {
@@ -37,5 +38,10 @@ public class TugOfWarPlayer : MonoBehaviour
                 eventManager.SendMessage("Respond");
             }
         }
+    }
+
+    public void Die()
+    {
+        GetComponent<SpriteRenderer>().sprite = deadSprite;
     }
 }
