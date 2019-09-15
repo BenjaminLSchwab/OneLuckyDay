@@ -25,61 +25,66 @@ public class CockFightFighter : MonoBehaviour
 	//cached component reference
 	Rigidbody2D rb;
 	Animator animator;
+    BetManager betManager;
 	[SerializeField] GameObject opponent;
 
     void Start()
     {
     	rb = GetComponent<Rigidbody2D>();
     	animator = GetComponent<Animator>();
+        betManager = FindObjectOfType<BetManager>();
     	health = maxHealth;
     }
 
     void Update()
     {
-    	Animate();
-    	decisionTimer -= Time.deltaTime;
-    	if(decisionTimer <= 0)
-    	{
-    		decisionTimer = decisionDelay;
-    		var rand = Random.Range(1,100);
-    		if(rand <= 65)
-    		{
-    			SetMode("charge");
-    		}
-    		else
-    		{
-    			SetMode("run");
-    		}
-    	}
-		moveTimer -= Time.deltaTime;
-        if(moveTimer <= 0)
+        if(betManager.chosenFighter != null && opponent != null)
         {
-        	moveTimer = moveDelay;
-        	Vector2 directionToOpponent = (opponent.transform.position - transform.position).normalized;
-			if(mode == "charge")
-			{
-				float distanceToOpponent = (opponent.transform.position - transform.position).magnitude;
-				if(distanceToOpponent > stoppingDistance)
-				{
-					rb.AddForce((directionToOpponent*moveSpeed)+moveOffset);	
-				}	
-				if(distanceToOpponent <= attackRange)
-				{
-					if(Time.realtimeSinceStartup - lastAttackTime >= attackDelay)
-					{
-						lastAttackTime = Time.realtimeSinceStartup;
-						var rand = Random.Range(1,3);
-						if(rand == 1)
-						{
-							StartCoroutine("Attack");
-						}
-					}
-				}
-			}
-        	else if(mode == "run")
-        	{
-        		rb.AddForce((directionToOpponent*moveSpeed*-1)+moveOffset);	
-        	}
+            Animate();
+            decisionTimer -= Time.deltaTime;
+            if(decisionTimer <= 0)
+            {
+                decisionTimer = decisionDelay;
+                var rand = Random.Range(1,100);
+                if(rand <= 65)
+                {
+                    SetMode("charge");
+                }
+                else
+                {
+                    SetMode("run");
+                }
+            }
+            moveTimer -= Time.deltaTime;
+            if(moveTimer <= 0)
+            {
+                moveTimer = moveDelay;
+                Vector2 directionToOpponent = (opponent.transform.position - transform.position).normalized;
+                if(mode == "charge")
+                {
+                    float distanceToOpponent = (opponent.transform.position - transform.position).magnitude;
+                    if(distanceToOpponent > stoppingDistance)
+                    {
+                        rb.AddForce((directionToOpponent*moveSpeed)+moveOffset);    
+                    }   
+                    if(distanceToOpponent <= attackRange)
+                    {
+                        if(Time.realtimeSinceStartup - lastAttackTime >= attackDelay)
+                        {
+                            lastAttackTime = Time.realtimeSinceStartup;
+                            var rand = Random.Range(1,3);
+                            if(rand == 1)
+                            {
+                                StartCoroutine("Attack");
+                            }
+                        }
+                    }
+                }
+                else if(mode == "run")
+                {
+                    rb.AddForce((directionToOpponent*moveSpeed*-1)+moveOffset); 
+                }
+            }    
         }
     }
 
@@ -135,6 +140,7 @@ public class CockFightFighter : MonoBehaviour
     	if(health <= 0)
     	{
     		Debug.Log(opponent.name + " wins");
+            Destroy(gameObject);
     	}
     }
 }

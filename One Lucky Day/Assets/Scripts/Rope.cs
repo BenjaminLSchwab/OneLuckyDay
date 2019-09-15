@@ -26,6 +26,7 @@ public class Rope : MonoBehaviour
         else if(transform.position.x >= distanceToWin)
         {
         	Debug.Log("you lose");
+            FindObjectOfType<TugOfWarPlayer>().gameObject.SendMessage("Die");
         }
     }
 
