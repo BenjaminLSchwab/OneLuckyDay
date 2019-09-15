@@ -31,7 +31,6 @@ public class Rope : MonoBehaviour
 
     public void Tug(float direction)
     {
-    	Debug.Log(direction);
-    	rb.velocity = new Vector2(direction,0);
+    	rb.velocity += new Vector2(direction,0);
     }
 }

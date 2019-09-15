@@ -32,8 +32,11 @@ public class TugOfWarEventManager : MonoBehaviour
     	}
         if(timer <= 0)
         {
-        	timer = eventDelay;
-        	var rand = Random.Range(1,2);
+            float rand = Random.Range(5,15);
+            rand = rand/10;
+        	timer = eventDelay*rand;
+            Debug.Log(timer);
+        	rand = Random.Range(1,2);
         	if(rand == 1)
         	{
         		StartCoroutine(Event());
