@@ -24,16 +24,19 @@ public class CockFightFighter : MonoBehaviour
 
 	//cached component reference
 	Rigidbody2D rb;
+	Animator animator;
 	[SerializeField] GameObject opponent;
 
     void Start()
     {
     	rb = GetComponent<Rigidbody2D>();
+    	animator = GetComponent<Animator>();
     	health = maxHealth;
     }
 
     void Update()
     {
+    	Animate();
     	decisionTimer -= Time.deltaTime;
     	if(decisionTimer <= 0)
     	{
@@ -68,7 +71,7 @@ public class CockFightFighter : MonoBehaviour
 						var rand = Random.Range(1,3);
 						if(rand == 1)
 						{
-							opponent.SendMessage("Damage", damage);	
+							StartCoroutine("Attack");
 						}
 					}
 				}
@@ -78,6 +81,34 @@ public class CockFightFighter : MonoBehaviour
         		rb.AddForce((directionToOpponent*moveSpeed*-1)+moveOffset);	
         	}
         }
+    }
+
+    void Animate()
+    {
+    	if(rb.velocity.magnitude > 0.1f)
+    	{
+    		animator.SetBool("Walking", true);
+    	}
+    	else
+    	{
+    		animator.SetBool("Walking", false);
+    	}
+    	if(rb.velocity.x > 0)
+    	{
+    		transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+    	}
+    	else if(rb.velocity.x < 0)
+    	{
+    		transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x)*-1, transform.localScale.y, transform.localScale.z);
+    	}
+    }
+
+    IEnumerator Attack()
+    {
+		opponent.SendMessage("Damage", damage);	
+		animator.SetBool("Attacking", true);
+		yield return new WaitForSeconds(0.5f);
+		animator.SetBool("Attacking", false);
     }
 
     void SetMode(string newMode)
