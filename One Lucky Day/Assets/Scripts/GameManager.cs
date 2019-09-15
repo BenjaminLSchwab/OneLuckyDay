@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     int playerMoney = 0;
     int gamesPlayed = 0;
     private string selectedGame = "";
+    int winnings = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +45,14 @@ public class GameManager : MonoBehaviour
     public void LoadLobby()
     {
         SceneManager.LoadScene("Lobby");
+        if (winnings >= 0)
+        {
+            AddToMoney(winnings);
+        }
+        else
+        {
+            SubtractFromMoney(winnings);
+        }
     }
 
     public int GetMoney()
@@ -51,13 +60,18 @@ public class GameManager : MonoBehaviour
         return playerMoney;
     }
 
-    public void AddToMoney(int ammount)
+    public void AddToMoney(int amount)
     {
-        playerMoney += ammount;
+        playerMoney += amount;
     }
 
-    public void SubtractFromMoney(int ammount)
+    public void SubtractFromMoney(int amount)
     {
-        playerMoney -= ammount;
+        playerMoney -= amount;
+    }
+
+    public void AddToWinnings(int amount)
+    {
+        winnings += amount;
     }
 }

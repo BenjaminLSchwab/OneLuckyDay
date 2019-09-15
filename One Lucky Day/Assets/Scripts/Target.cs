@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
+    [SerializeField] int targetWorth = 10;
     GameObject path;
+    public List<Transform> waypoints;
     float speed = 1f;
+    int waypointIndex = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +20,22 @@ public class Target : MonoBehaviour
     {
         if (path)
         {
-            
+            var targetPosition = waypoints[waypointIndex].position;
+            var movementThisFrame = Time.deltaTime * speed;
+            transform.position = Vector2.MoveTowards(transform.position, targetPosition, movementThisFrame);
+            if (transform.position == targetPosition)
+            {
+                if (waypointIndex == waypoints.Count - 1)
+                {
+                    waypointIndex = 0;
+                }
+                else
+                {
+                    waypointIndex++;
+                }
+            }
+
+
         }
     }
 
@@ -29,5 +47,16 @@ public class Target : MonoBehaviour
     public void SetPath(GameObject newPath)
     {
         path = newPath;
+        waypoints = new List<Transform>();
+        foreach (Transform point in path.transform)
+        {
+            waypoints.Add(point);
+        }
+    }
+
+    public void Hit()
+    {
+        FindObjectOfType<GameManager>().AddToWinnings(targetWorth);
+        gameObject.SetActive(false);
     }
 }

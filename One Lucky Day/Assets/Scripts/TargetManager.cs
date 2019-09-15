@@ -8,11 +8,12 @@ public class TargetManager : MonoBehaviour
     [SerializeField] List<GameObject> targets;
     [SerializeField] float targetSpeed = 1f;
     [SerializeField] float targetSpacing = 1f;
-    
+    List<GameObject> targetPool;
     // Start is called before the first frame update
     void Start()
     {
-        
+        targetPool = new List<GameObject>();
+        Begin();
     }
 
     // Update is called once per frame
@@ -23,7 +24,7 @@ public class TargetManager : MonoBehaviour
 
     public void Begin()
     {
-
+        StartCoroutine(SpawnLoop());
     }
 
     IEnumerator SpawnLoop()
@@ -32,8 +33,10 @@ public class TargetManager : MonoBehaviour
         {
 
             var target = Instantiate(targets[i], transform.position, Quaternion.identity);
+            targetPool.Add(target);
             target.SendMessage("SetSpeed", targetSpeed);
             target.SendMessage("SetPath", path);
+            target.SetActive(true);
             yield return new WaitForSeconds(targetSpacing);
         }
 
