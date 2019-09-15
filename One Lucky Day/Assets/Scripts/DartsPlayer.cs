@@ -10,13 +10,16 @@ public class DartsPlayer : MonoBehaviour
     [SerializeField] float armMaxAngle = 45f;
     [SerializeField] float armMinAngle = 340f;
     [SerializeField] float armRotateSpeed = 1f;
+    [SerializeField] float projectileRotateSpeed = 0.2f;
     [SerializeField] float projectileChargeSpeed = 1f;
-    [SerializeField] Vector3 projectileForceOffset;
-    [SerializeField] Vector3 projectilePositionOffset;
+    [SerializeField] float projectileMaxCharge = 200f;
+    [SerializeField] GameObject weaponTip;
+    [SerializeField] GameObject firingDirection;
 
     enum InputMode {Aim, Charge};
     InputMode inputMode = InputMode.Aim;
     bool aimingUp = true;
+    bool chargingUp = true;
     float projectileCharge = 0;
     
     // Start is called before the first frame update
@@ -54,17 +57,37 @@ public class DartsPlayer : MonoBehaviour
                 break;
 
             case InputMode.Charge:
+                if (chargingUp)
+                {
                 projectileCharge += Time.deltaTime * projectileChargeSpeed;
+                    if (projectileCharge > projectileMaxCharge)
+                    {
+                        chargingUp = false;
+                    }
+                }
+                else
+                {
+                    projectileCharge -= Time.deltaTime * projectileChargeSpeed;
+                    if (projectileCharge < 0)
+                    {
+                        chargingUp = true;
+                    }
+                }
                 if (Input.GetButtonUp("Fire1"))
                 {
-                    var proj = Instantiate(projectile, armSprite.transform.position + projectilePositionOffset, armPivot.transform.rotation);
+                    var proj = Instantiate(projectile, weaponTip.transform.position, armPivot.transform.rotation);
                     var rb = proj.GetComponent<Rigidbody2D>();
-                    rb.AddForce(((armSprite.transform.position + projectileForceOffset ) - armPivot.transform.position) * projectileCharge);
-     
+                    rb.AddForce((firingDirection.transform.position - weaponTip.transform.position) * projectileCharge);
+                    rb.AddTorque(-projectileRotateSpeed);
                     inputMode = InputMode.Aim;
                     projectileCharge = 0f;
                 }
                 break;
         }
+    }
+
+    public float GetCharge()
+    {
+        return Mathf.InverseLerp(0,projectileMaxCharge, projectileCharge);
     }
 }

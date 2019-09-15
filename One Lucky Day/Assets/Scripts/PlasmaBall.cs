@@ -19,5 +19,6 @@ public class PlasmaBall : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         collision.SendMessage("Hit");
+        gameObject.SetActive(false);
     }
 }
