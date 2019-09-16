@@ -900,7 +900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cddf3a5d4f94dde4a99306286a0319c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameName: Fight
+  gameName: CockFight
   indicator: {fileID: 880951706}
 --- !u!61 &1795974764
 BoxCollider2D:

@@ -8,6 +8,7 @@ public class TugOfWarPlayer : MonoBehaviour
 	[SerializeField] float tugStrength;
 
 	//state
+    bool dead;
 
 	//cached component reference
 	GameObject rope;
@@ -42,6 +43,11 @@ public class TugOfWarPlayer : MonoBehaviour
 
     public void Die()
     {
-        GetComponent<SpriteRenderer>().sprite = deadSprite;
+        if(!dead)
+        {
+            dead = true;
+            GetComponent<SpriteRenderer>().sprite = deadSprite;
+            transform.position += new Vector3(0,-1,0);   
+        } 
     }
 }

@@ -12,6 +12,7 @@ public class BetManager : MonoBehaviour
 
 	//cached component reference
 	Canvas canvas;
+    GameObject gameManager;
 	[SerializeField] GameObject fighter1;
 	[SerializeField] GameObject fighter2;
 	public GameObject chosenFighter;
@@ -20,6 +21,7 @@ public class BetManager : MonoBehaviour
 
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>().gameObject;
         canvas = FindObjectOfType<Canvas>();
         LoadUI();
     }
@@ -35,33 +37,23 @@ public class BetManager : MonoBehaviour
     	{
     		if(chosenFighter == fighter2)
     		{
-	    		endScreen.SetActive(true);
-	    		endScreen.transform.Find("ResultMessage").GetComponent<Text>().text = "Your fighter won!";
-	    		endScreen.transform.Find("WinningsMessage").GetComponent<Text>().text = "You made $" + betAmount + ".";
+                Win();
     		}
     		else
     		{
-    			endScreen.SetActive(true);
-    			endScreen.transform.Find("ResultMessage").GetComponent<Text>().text = "Your fighter lost.";
-	    		endScreen.transform.Find("WinningsMessage").GetComponent<Text>().text = "You lost $" + betAmount + ".";
-	    		endScreen.transform.Find("WinningsMessage").GetComponent<Text>().color = Color.red;
+    			Lose();
     		}
     	}
     	else if(fighter2 == null)
     	{
     		if(chosenFighter == fighter1)
     		{
-	    		endScreen.SetActive(true);
-	    		endScreen.transform.Find("ResultMessage").GetComponent<Text>().text = "Your fighter won!";
-	    		endScreen.transform.Find("WinningsMessage").GetComponent<Text>().text = "You made $" + betAmount + ".";
-    		}
-    		else
-    		{
-    			endScreen.SetActive(true);
-    			endScreen.transform.Find("ResultMessage").GetComponent<Text>().text = "Your fighter lost.";
-	    		endScreen.transform.Find("WinningsMessage").GetComponent<Text>().text = "You lost $" + betAmount + ".";
-	    		endScreen.transform.Find("WinningsMessage").GetComponent<Text>().color = Color.red;
-    		}
+                Win();
+            }
+            else
+            {
+                Lose();
+            }
     	}
     }
 
@@ -69,17 +61,47 @@ public class BetManager : MonoBehaviour
     {
     	bettingUI.transform.Find("Fighter1").transform.Find("Image").GetComponent<Image>().sprite = fighter1.GetComponent<SpriteRenderer>().sprite;
     	bettingUI.transform.Find("Fighter2").transform.Find("Image").GetComponent<Image>().sprite = fighter2.GetComponent<SpriteRenderer>().sprite;
+        bettingUI.transform.Find("BetAmount").GetComponent<Text>().text = "Bet Amount: " + betAmount.ToString();
+    }
+
+    void Win()
+    {
+        if(!endScreen.activeSelf)
+        {
+            gameManager.SendMessage("AddToWinnings", betAmount*2);
+            endScreen.SetActive(true);
+            endScreen.transform.Find("ResultMessage").GetComponent<Text>().text = "Your fighter won!";
+            endScreen.transform.Find("WinningsMessage").GetComponent<Text>().text = "You made $" + betAmount + ".";
+        }
+    }
+
+    void Lose()
+    {
+        if(!endScreen.activeSelf)
+        {
+            endScreen.SetActive(true);
+            endScreen.transform.Find("ResultMessage").GetComponent<Text>().text = "Your fighter lost.";
+            endScreen.transform.Find("WinningsMessage").GetComponent<Text>().text = "You lost $" + betAmount + ".";
+            endScreen.transform.Find("WinningsMessage").GetComponent<Text>().color = Color.red;    
+        }
     }
 
     public void BetOnFighter1()
     {
     	chosenFighter = fighter1;
     	Destroy(bettingUI);
+        gameManager.SendMessage("SubtractFromMoney", betAmount);
     }
 
     public void BetOnFighter2()
     {
     	chosenFighter = fighter2;
     	Destroy(bettingUI);
+        gameManager.SendMessage("SubtractFromMoney", betAmount);
+    }
+
+    public void EndGame()
+    {
+        gameManager.SendMessage("LoadLobby");
     }
 }

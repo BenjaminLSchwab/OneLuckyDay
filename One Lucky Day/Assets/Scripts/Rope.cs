@@ -5,33 +5,24 @@ using UnityEngine;
 public class Rope : MonoBehaviour
 {
 	//config params
-	[SerializeField] float distanceToWin;
 
 	//state
 
 	//cached component reference
+    TugOfWarGameStatus gameStatus;
 	Rigidbody2D rb;
 
     void Start()
     {
+        gameStatus = FindObjectOfType<TugOfWarGameStatus>();
         rb = GetComponent<Rigidbody2D>();
-    }
-
-    void Update()
-    {
-        if(transform.position.x <= distanceToWin*-1)
-        {
-        	Debug.Log("you win");
-        }
-        else if(transform.position.x >= distanceToWin)
-        {
-        	Debug.Log("you lose");
-            FindObjectOfType<TugOfWarPlayer>().gameObject.SendMessage("Die");
-        }
     }
 
     public void Tug(float direction)
     {
-    	rb.velocity += new Vector2(direction,0);
+        if(!gameStatus.gameOver)
+        {
+            rb.velocity += new Vector2(direction,0);
+        }
     }
 }

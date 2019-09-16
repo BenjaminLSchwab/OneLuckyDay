@@ -10,9 +10,11 @@ public class TugOfWarOpponent : MonoBehaviour
 
 	//state
 	float tugTimer;
+    bool dead;
 
 	//cached component reference
 	GameObject rope;
+    [SerializeField] Sprite deadSprite;
 
     void Start()
     {
@@ -28,5 +30,15 @@ public class TugOfWarOpponent : MonoBehaviour
         	tugTimer = tugDelay;
         	rope.SendMessage("Tug", tugStrength + Random.Range(0,1));
         }
+    }
+
+    public void Die()
+    {
+        if(!dead)
+        {
+            dead = true;
+            GetComponent<SpriteRenderer>().sprite = deadSprite;
+            transform.position += new Vector3(0,-1,0);   
+        } 
     }
 }

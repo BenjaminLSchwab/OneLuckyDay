@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TugOfWar.unity
     guid: f0dee05aeb51b694fb10af3d33fb1dc1
+  - enabled: 1
+    path: Assets/Scenes/CockFight.unity
+    guid: 14a50d3efacfed74d929c229e216c52d
   m_configObjects: {}

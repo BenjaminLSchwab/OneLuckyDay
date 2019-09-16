@@ -14,6 +14,7 @@ public class TugOfWarEventManager : MonoBehaviour
 	public bool eventActive;
 
 	//cached component reference
+    TugOfWarGameStatus gameStatus;
 	GameObject rope;
 	[SerializeField] GameObject sprite;
 
@@ -21,26 +22,30 @@ public class TugOfWarEventManager : MonoBehaviour
     {
     	sprite.SetActive(false);
         rope = FindObjectOfType<Rope>().gameObject;
+        gameStatus = FindObjectOfType<TugOfWarGameStatus>();
         timer = eventDelay;
     }
 
     void Update()
     {
-    	if(!eventActive)
-    	{
-    		timer -= Time.deltaTime;	
-    	}
-        if(timer <= 0)
+        if(!gameStatus.gameOver)
         {
-            float rand = Random.Range(5,15);
-            rand = rand/10;
-        	timer = eventDelay*rand;
-            Debug.Log(timer);
-        	rand = Random.Range(1,2);
-        	if(rand == 1)
-        	{
-        		StartCoroutine(Event());
-        	}
+            if(!eventActive)
+            {
+                timer -= Time.deltaTime;    
+            }
+            if(timer <= 0)
+            {
+                float rand = Random.Range(5,15);
+                rand = rand/10;
+                timer = eventDelay*rand;
+                Debug.Log(timer);
+                rand = Random.Range(1,2);
+                if(rand == 1)
+                {
+                    StartCoroutine(Event());
+                }
+            }    
         }
     }
 
