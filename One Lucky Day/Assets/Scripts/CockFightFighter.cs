@@ -27,6 +27,7 @@ public class CockFightFighter : MonoBehaviour
 	Animator animator;
     BetManager betManager;
 	[SerializeField] GameObject opponent;
+    [SerializeField] GameObject blood;
 
     void Start()
     {
@@ -98,11 +99,11 @@ public class CockFightFighter : MonoBehaviour
     	{
     		animator.SetBool("Walking", false);
     	}
-    	if(rb.velocity.x > 0)
+    	if(rb.velocity.x > 0.1f)
     	{
     		transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
     	}
-    	else if(rb.velocity.x < 0)
+    	else if(rb.velocity.x < -0.1f)
     	{
     		transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x)*-1, transform.localScale.y, transform.localScale.z);
     	}
@@ -136,6 +137,9 @@ public class CockFightFighter : MonoBehaviour
     void Damage(int damageTaken)
     {
     	health -= damageTaken;
+        var bloodEffect = Instantiate(blood);
+        bloodEffect.transform.position = transform.position;
+        Destroy(bloodEffect, 0.7f);
     	Debug.Log(gameObject.name + " Health:" + health);
     	if(health <= 0)
     	{

@@ -33,11 +33,18 @@ public class TugOfWarGameStatus : MonoBehaviour
             gameOver = true;
 	    	gameManager.SendMessage("AddToWinnings", prizeMoney);	
             FindObjectOfType<TugOfWarOpponent>().gameObject.SendMessage("Die");
+            Invoke("EndGame", 2);
         }
         else if(rope.transform.position.x >= distanceToWin)
         {
         	gameOver = true;
             FindObjectOfType<TugOfWarPlayer>().gameObject.SendMessage("Die");
+            Invoke("EndGame", 2);
         }
+    }
+
+    void EndGame()
+    {
+        gameManager.SendMessage("LoadLobby");
     }
 }

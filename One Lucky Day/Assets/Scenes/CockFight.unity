@@ -426,6 +426,11 @@ PrefabInstance:
       propertyPath: opponent
       value: 
       objectReference: {fileID: 709577317}
+    - target: {fileID: 709577322, guid: 12400c98e3e34664989213ae2bb53668, type: 3}
+      propertyPath: blood
+      value: 
+      objectReference: {fileID: 8228905883097854533, guid: 0e2955cb331edc74288c9ed3cc1c7772,
+        type: 3}
     - target: {fileID: 709577323, guid: 12400c98e3e34664989213ae2bb53668, type: 3}
       propertyPath: m_Controller
       value: 
@@ -1662,7 +1667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f3be764fd577df44b5df1f0f8046ba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  betAmount: 0
+  betAmount: 10
   fighter1: {fileID: 709577317}
   fighter2: {fileID: 109936825}
   chosenFighter: {fileID: 0}

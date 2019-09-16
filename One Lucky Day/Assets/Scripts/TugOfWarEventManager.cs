@@ -15,13 +15,16 @@ public class TugOfWarEventManager : MonoBehaviour
 
 	//cached component reference
     TugOfWarGameStatus gameStatus;
+    GameObject player;
 	GameObject rope;
 	[SerializeField] GameObject sprite;
+    [SerializeField] GameObject controlsSprite;
 
     void Start()
     {
     	sprite.SetActive(false);
         rope = FindObjectOfType<Rope>().gameObject;
+        player = FindObjectOfType<TugOfWarPlayer>().gameObject;
         gameStatus = FindObjectOfType<TugOfWarGameStatus>();
         timer = eventDelay;
     }
@@ -52,11 +55,14 @@ public class TugOfWarEventManager : MonoBehaviour
     IEnumerator Event()
     {
     	sprite.SetActive(true);
+        controlsSprite.SetActive(true);
+        sprite.transform.position = player.transform.position + new Vector3(1,1,0);
     	eventActive = true;
     	yield return new WaitForSeconds(eventDuration);
     	if(eventActive)
     	{
     		sprite.SetActive(false);	
+            controlsSprite.SetActive(false);
     		eventActive = false;
     		rope.SendMessage("Tug", advantage);
     	}
@@ -65,6 +71,7 @@ public class TugOfWarEventManager : MonoBehaviour
     public void Respond()
     {
     	sprite.SetActive(false);
+        controlsSprite.SetActive(false);
     	eventActive = false;
     	rope.SendMessage("Tug", advantage*-1);
     }

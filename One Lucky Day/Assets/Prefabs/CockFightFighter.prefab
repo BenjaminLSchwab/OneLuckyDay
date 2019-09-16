@@ -143,6 +143,7 @@ MonoBehaviour:
   stoppingDistance: 2
   maxHealth: 100
   opponent: {fileID: 0}
+  blood: {fileID: 8228905883097854533, guid: 0e2955cb331edc74288c9ed3cc1c7772, type: 3}
 --- !u!95 &709577323
 Animator:
   serializedVersion: 3
