@@ -21,11 +21,12 @@ public class DartsPlayer : MonoBehaviour
     bool aimingUp = true;
     bool chargingUp = true;
     float projectileCharge = 0;
+    List<GameObject> PlasmaPool;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        PlasmaPool = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -75,7 +76,15 @@ public class DartsPlayer : MonoBehaviour
                 }
                 if (Input.GetButtonUp("Fire1"))
                 {
-                    var proj = Instantiate(projectile, weaponTip.transform.position, armPivot.transform.rotation);
+                    var proj = Utilities.PullFromPool(PlasmaPool);
+                    if (proj == null)
+                    {
+                        proj = Instantiate(projectile);
+                        PlasmaPool.Add(proj);
+                    }
+                    proj.SetActive(true);
+                    proj.transform.position = weaponTip.transform.position;
+                    proj.transform.rotation = armPivot.transform.rotation;
                     var rb = proj.GetComponent<Rigidbody2D>();
                     rb.AddForce((firingDirection.transform.position - weaponTip.transform.position) * projectileCharge);
                     rb.AddTorque(-projectileRotateSpeed);
