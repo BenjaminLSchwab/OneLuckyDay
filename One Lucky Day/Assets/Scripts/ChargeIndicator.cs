@@ -5,12 +5,11 @@ using UnityEngine.UIElements;
 
 public class ChargeIndicator : MonoBehaviour
 {
-    Slider slider;
+    [SerializeField] ChargeBar slider;
     DartsPlayer dartsPlayer;
     // Start is called before the first frame update
     void Start()
     {
-        slider = gameObject.GetComponent<Slider>();
         dartsPlayer = FindObjectOfType<DartsPlayer>();
     }
 
