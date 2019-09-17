@@ -9,10 +9,11 @@ public class Target : MonoBehaviour
     public List<Transform> waypoints;
     float speed = 1f;
     int waypointIndex = 0;
+    TargetManager targetManager;
     // Start is called before the first frame update
     void Start()
     {
-        
+        targetManager = FindObjectOfType<TargetManager>();
     }
 
     // Update is called once per frame
@@ -58,5 +59,6 @@ public class Target : MonoBehaviour
     {
         FindObjectOfType<GameManager>().AddToWinnings(targetWorth);
         gameObject.SetActive(false);
+        targetManager.CheckForGameOver();
     }
 }

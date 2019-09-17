@@ -1300,7 +1300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57c1ba4cc2b69b44b9b7a30fd623b14d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHP: 1
+  startingHP: 3
   dmgSprites:
   - {fileID: 1182513766734932090, guid: af1698bd2866f4c478f009602aa5a7d8, type: 3}
   - {fileID: 2003857370071509399, guid: af1698bd2866f4c478f009602aa5a7d8, type: 3}
@@ -2041,7 +2041,7 @@ GameObject:
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1543542367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2056,10 +2056,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 4243510791501369100, guid: 70d1b993e7315c543ac84c7b9df834ec, type: 3}
   targets:
-  - {fileID: 1831191889456596722, guid: 1dfa9baa5639eb747bd95d356072772e, type: 3}
-  - {fileID: 1831191889456596722, guid: 1dfa9baa5639eb747bd95d356072772e, type: 3}
-  - {fileID: 1831191889456596722, guid: 1dfa9baa5639eb747bd95d356072772e, type: 3}
-  - {fileID: 1831191889456596722, guid: 1dfa9baa5639eb747bd95d356072772e, type: 3}
   - {fileID: 1831191889456596722, guid: 1dfa9baa5639eb747bd95d356072772e, type: 3}
   targetSpeed: 1
   targetSpacing: 2
