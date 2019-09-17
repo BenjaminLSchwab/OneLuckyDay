@@ -19,6 +19,7 @@ public class TugOfWarEventManager : MonoBehaviour
 	GameObject rope;
 	[SerializeField] GameObject sprite;
     [SerializeField] GameObject controlsSprite;
+    [SerializeField] AudioClip beeSound;
 
     void Start()
     {
@@ -58,6 +59,8 @@ public class TugOfWarEventManager : MonoBehaviour
         controlsSprite.SetActive(true);
         sprite.transform.position = player.transform.position + new Vector3(1,1,0);
     	eventActive = true;
+        GetComponent<AudioSource>().clip = beeSound;
+        GetComponent<AudioSource>().Play();
     	yield return new WaitForSeconds(eventDuration);
     	if(eventActive)
     	{
