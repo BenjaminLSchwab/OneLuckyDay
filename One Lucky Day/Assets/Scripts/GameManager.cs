@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] int playerStartingMoney = 42;
     [SerializeField] int chancesToPlay = 10;
+    [SerializeField] float loadLobbyDelay = 1.5f;
     int playerMoney = 0;
     int gamesPlayed = 0;
     private string selectedGame = "";
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        SetUpSingleton();
+        DontDestroyOnLoad(gameObject);
     }
 
     private void SetUpSingleton()
@@ -60,6 +61,12 @@ public class GameManager : MonoBehaviour
 
     public void LoadLobby()
     {
+        StartCoroutine(LoadLobbyWithDelay());
+    }
+
+    IEnumerator LoadLobbyWithDelay()
+    {
+        yield return new WaitForSeconds(loadLobbyDelay);
         SceneManager.LoadScene("Lobby");
         if (winnings >= 0)
         {
@@ -69,6 +76,7 @@ public class GameManager : MonoBehaviour
         {
             SubtractFromMoney(winnings);
         }
+        winnings = 0;
     }
 
     public int GetMoney()
