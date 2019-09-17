@@ -14,6 +14,7 @@ public class TugOfWarGameStatus : MonoBehaviour
 	//cached component reference
 	GameManager gameManager;
 	Rope rope;
+    [SerializeField] AudioClip sizzleSound;
 
 	void Start()
 	{
@@ -34,12 +35,22 @@ public class TugOfWarGameStatus : MonoBehaviour
 	    	gameManager.SendMessage("AddToWinnings", prizeMoney);	
             FindObjectOfType<TugOfWarOpponent>().gameObject.SendMessage("Die");
             Invoke("EndGame", 2);
+            if(!GetComponent<AudioSource>().isPlaying)
+            {
+                GetComponent<AudioSource>().clip = sizzleSound;
+                GetComponent<AudioSource>().Play();    
+            } 
         }
         else if(rope.transform.position.x >= distanceToWin)
         {
         	gameOver = true;
             FindObjectOfType<TugOfWarPlayer>().gameObject.SendMessage("Die");
             Invoke("EndGame", 2);
+            if(!GetComponent<AudioSource>().isPlaying)
+            {
+                GetComponent<AudioSource>().clip = sizzleSound;
+                GetComponent<AudioSource>().Play();    
+            } 
         }
     }
 
