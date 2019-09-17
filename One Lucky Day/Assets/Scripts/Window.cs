@@ -41,9 +41,10 @@ public class Window : MonoBehaviour
     {
         foreach (Transform item in debris.transform)
         {
+            item.gameObject.SetActive(true);
             var rb = item.GetComponent<Rigidbody2D>();
             if (rb == null) continue;
-            rb.velocity = (transform.position - item.transform.position) * succStrength;
+            rb.velocity = (transform.position - item.transform.position).normalized * succStrength;
         }
     }
 }
