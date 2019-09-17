@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TugOfWarGameStatus : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class TugOfWarGameStatus : MonoBehaviour
 	GameManager gameManager;
 	Rope rope;
     [SerializeField] AudioClip sizzleSound;
+    [SerializeField] GameObject endScreen;
 
 	void Start()
 	{
@@ -34,7 +36,7 @@ public class TugOfWarGameStatus : MonoBehaviour
             gameOver = true;
 	    	gameManager.SendMessage("AddToWinnings", prizeMoney);	
             FindObjectOfType<TugOfWarOpponent>().gameObject.SendMessage("Die");
-            Invoke("EndGame", 2);
+            StartCoroutine("Win");
             if(!GetComponent<AudioSource>().isPlaying)
             {
                 GetComponent<AudioSource>().clip = sizzleSound;
@@ -45,7 +47,7 @@ public class TugOfWarGameStatus : MonoBehaviour
         {
         	gameOver = true;
             FindObjectOfType<TugOfWarPlayer>().gameObject.SendMessage("Die");
-            Invoke("EndGame", 2);
+            StartCoroutine("Lose");
             if(!GetComponent<AudioSource>().isPlaying)
             {
                 GetComponent<AudioSource>().clip = sizzleSound;
@@ -54,8 +56,21 @@ public class TugOfWarGameStatus : MonoBehaviour
         }
     }
 
-    void EndGame()
+    IEnumerator Win()
     {
+        endScreen.SetActive(true);
+        endScreen.transform.Find("Message").GetComponent<Text>().text = "You won!";
+        endScreen.transform.Find("Message").GetComponent<Text>().color = Color.green;
+        yield return new WaitForSeconds(3);
+        gameManager.SendMessage("LoadLobby");
+    }
+
+    IEnumerator Lose()
+    {
+        endScreen.SetActive(true);
+        endScreen.transform.Find("Message").GetComponent<Text>().text = "You lost";
+        endScreen.transform.Find("Message").GetComponent<Text>().color = Color.red;
+        yield return new WaitForSeconds(3);
         gameManager.SendMessage("LoadLobby");
     }
 }
