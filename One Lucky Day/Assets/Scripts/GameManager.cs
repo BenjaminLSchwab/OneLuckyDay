@@ -76,6 +76,11 @@ public class GameManager : MonoBehaviour
         return playerMoney;
     }
 
+    public int GetWinnings()
+    {
+        return winnings;
+    }
+
     public void AddToMoney(int amount)
     {
         playerMoney += amount;

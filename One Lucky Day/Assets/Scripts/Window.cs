@@ -8,19 +8,32 @@ public class Window : MonoBehaviour
     [SerializeField] List<Sprite> dmgSprites;
     [SerializeField] GameObject debris;
     [SerializeField] float succStrength = 1f;
+    [SerializeField] Transform succDirection;
+    [SerializeField] float gameOverDelay = 1.5f;
     int currentHP;
     SpriteRenderer spRenderer;
+    bool gameOver = false;
+    float gameOverTimer = 0f;
     // Start is called before the first frame update
     void Start()
     {
         spRenderer = GetComponent<SpriteRenderer>();
         currentHP = startingHP;
+        gameOverTimer = gameOverDelay;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (gameOver)
+        {
+            gameOverTimer -= Time.deltaTime;
+            if (gameOverTimer < 0)
+            {
+                FindObjectOfType<GameManager>().LoadLobby();
+            }
+        }
+
     }
 
     public void Hit()
@@ -44,7 +57,9 @@ public class Window : MonoBehaviour
             item.gameObject.SetActive(true);
             var rb = item.GetComponent<Rigidbody2D>();
             if (rb == null) continue;
-            rb.velocity = (transform.position - item.transform.position).normalized * succStrength;
+            rb.velocity = (succDirection.position - item.transform.position).normalized * succStrength;
+            gameOver = true;
         }
+        
     }
 }
