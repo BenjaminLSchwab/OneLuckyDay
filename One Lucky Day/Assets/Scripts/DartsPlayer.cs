@@ -15,6 +15,10 @@ public class DartsPlayer : MonoBehaviour
     [SerializeField] float projectileMaxCharge = 200f;
     [SerializeField] GameObject weaponTip;
     [SerializeField] GameObject firingDirection;
+    [SerializeField] AudioClip weaponChargeSound;
+    [SerializeField] float weaponChargeVolume = 1f;
+    [SerializeField] AudioClip weaponFireSound;
+    [SerializeField] float weaponFireVolume = 1f;
 
     enum InputMode {Aim, Charge};
     InputMode inputMode = InputMode.Aim;
@@ -35,6 +39,7 @@ public class DartsPlayer : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             inputMode = InputMode.Charge;
+            AudioSource.PlayClipAtPoint(weaponChargeSound, transform.position, weaponChargeVolume);
         }
         switch (inputMode)
         {
@@ -76,6 +81,7 @@ public class DartsPlayer : MonoBehaviour
                 }
                 if (Input.GetButtonUp("Fire1"))
                 {
+                    Debug.Log(projectileCharge);
                     var proj = Utilities.PullFromPool(PlasmaPool);
                     if (proj == null)
                     {
@@ -90,6 +96,7 @@ public class DartsPlayer : MonoBehaviour
                     rb.AddTorque(-projectileRotateSpeed);
                     inputMode = InputMode.Aim;
                     projectileCharge = 0f;
+                    AudioSource.PlayClipAtPoint(weaponFireSound, transform.position, weaponFireVolume);
                 }
                 break;
         }

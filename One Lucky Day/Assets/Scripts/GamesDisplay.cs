@@ -19,6 +19,15 @@ public class GamesDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var numberLeft = gameManager.GetGamesLeft();
+        if (numberLeft == 0)
+        {
+            text.text = "Last Game!";
+        }
+        else
+        {
+
         text.text = gameManager.GetGamesLeft().ToString();
+        }
     }
 }

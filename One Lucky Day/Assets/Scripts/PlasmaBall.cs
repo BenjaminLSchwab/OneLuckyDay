@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlasmaBall : MonoBehaviour
 {
+    [SerializeField] AudioClip hitSound;
+    [SerializeField] float hitSoundVolume = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +20,7 @@ public class PlasmaBall : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        AudioSource.PlayClipAtPoint(hitSound, transform.position, hitSoundVolume);
         collision.SendMessage("Hit");
         gameObject.SetActive(false);
     }

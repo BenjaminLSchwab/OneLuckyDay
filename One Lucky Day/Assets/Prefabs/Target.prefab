@@ -128,6 +128,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetWorth: 10
   waypoints: []
+  hitSound: {fileID: 8300000, guid: 2f725924b8791b94384be68565a533db, type: 3}
+  hitSoundVolume: 1
 --- !u!50 &1831191889456596724
 Rigidbody2D:
   serializedVersion: 4

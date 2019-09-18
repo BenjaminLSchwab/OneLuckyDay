@@ -10,6 +10,9 @@ public class Window : MonoBehaviour
     [SerializeField] float succStrength = 1f;
     [SerializeField] Transform succDirection;
     [SerializeField] float gameOverDelay = 1.5f;
+    [SerializeField] AudioClip crackSound;
+    [SerializeField] List<AudioClip> breakSounds;
+    [SerializeField] float volume = 0.5f;
     int currentHP;
     SpriteRenderer spRenderer;
     bool gameOver = false;
@@ -39,6 +42,7 @@ public class Window : MonoBehaviour
 
     public void Hit()
     {
+        AudioSource.PlayClipAtPoint(crackSound, transform.position, volume);
         currentHP--;
         if (currentHP < 1)
         {
@@ -53,6 +57,10 @@ public class Window : MonoBehaviour
 
     void Succ()
     {
+        foreach (var sound in breakSounds)
+        {
+            AudioSource.PlayClipAtPoint(sound, transform.position, volume);
+        }
         foreach (Transform item in debris.transform)
         {
             item.gameObject.SetActive(true);

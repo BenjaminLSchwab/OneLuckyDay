@@ -19,6 +19,10 @@ public class SlideshowObject : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
+        if (Input.GetButtonDown("Fire1"))
+        {
+            timer = 0;
+        }
         if (timer < 0)
         {
             if (nextObject)

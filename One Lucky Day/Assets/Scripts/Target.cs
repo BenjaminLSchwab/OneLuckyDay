@@ -10,6 +10,8 @@ public class Target : MonoBehaviour
     float speed = 1f;
     int waypointIndex = 0;
     TargetManager targetManager;
+    [SerializeField] AudioClip hitSound;
+    [SerializeField] float hitSoundVolume = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +59,7 @@ public class Target : MonoBehaviour
 
     public void Hit()
     {
+        AudioSource.PlayClipAtPoint(hitSound, transform.position, hitSoundVolume);
         FindObjectOfType<GameManager>().AddToWinnings(targetWorth);
         gameObject.SetActive(false);
         targetManager.CheckForGameOver();

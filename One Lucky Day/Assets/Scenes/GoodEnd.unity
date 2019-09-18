@@ -726,8 +726,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Your addiction to gamer fuel has gotten way out of hand. You have been borrowing
-    credits to keep that sweet juice flowing.
+  m_Text: WinWin
 --- !u!222 &1530855621
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -979,11 +978,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7800359760123491129, guid: 8f84796b5a15b5a4396e2c7fe5b60e81,
-        type: 3}
-      propertyPath: chancesToPlay
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f84796b5a15b5a4396e2c7fe5b60e81, type: 3}

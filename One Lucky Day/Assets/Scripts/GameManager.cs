@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int chancesToPlay = 10;
     [SerializeField] float loadLobbyDelay = 1.5f;
     [SerializeField] float loadGameDelay = 2f;
+    [SerializeField] int moneyToWin = 10000;
     int playerMoney = 0;
     int gamesPlayed = 0;
     private string selectedGame = "";
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     SubtractFromMoney(winnings);
+                    CheckForGameOver();
                 }
                 
             }
@@ -80,9 +82,24 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    gamesPlayed++;
                     SceneManager.LoadScene(selectedGame);
+                    gamesPlayed++;
                 }
+            }
+        }
+    }
+
+    void CheckForGameOver()
+    {
+        if (gamesPlayed > chancesToPlay)
+        {
+            if (playerMoney > moneyToWin)
+            {
+                SceneManager.LoadScene("GoodEnd");
+            }
+            else
+            {
+                SceneManager.LoadScene("BadEnd");
             }
         }
     }
@@ -91,6 +108,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         AddToMoney(winnings);
+        CheckForGameOver();
     }
 
     public int GetGamesLeft()
@@ -105,7 +123,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadGame()
     {
-        if (loadingGame) return;
+        if (loadingGame || gamesPlayed > chancesToPlay) return;
         SubtractFromMoney(gameCost);
         loadingGame = true;
     }
@@ -132,7 +150,7 @@ public class GameManager : MonoBehaviour
         playerMoney += amount;
         winnings = 0;
         var disp = FindObjectOfType<DifferenceDisplay>();
-        disp.displayText.text = amount.ToString();
+        disp.displayText.text = "+" + amount.ToString();
         disp.SendMessage("SetDisplayActive");
     }
 
@@ -140,7 +158,7 @@ public class GameManager : MonoBehaviour
     {
         playerMoney -= amount;
         var disp = FindObjectOfType<DifferenceDisplay>();
-        disp.displayText.text = amount.ToString();
+        disp.displayText.text = "-" + amount.ToString();
         disp.SendMessage("SetDisplayActive");
     }
 
