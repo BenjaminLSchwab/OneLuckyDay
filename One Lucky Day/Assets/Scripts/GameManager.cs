@@ -11,17 +11,19 @@ public class GameManager : MonoBehaviour
     int playerMoney = 0;
     int gamesPlayed = 0;
     private string selectedGame = "";
+    float loadLobbyTimer = 0;
+    bool loadingLobby = false;
+
     int winnings = 0;
     // Start is called before the first frame update
     void Start()
     {
+        SetUpSingleton();
         playerMoney = playerStartingMoney;
+        loadLobbyTimer = loadLobbyDelay;
     }
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
+
 
     private void SetUpSingleton()
     {
@@ -38,7 +40,25 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (loadingLobby)
+        {
+            loadLobbyTimer -= Time.deltaTime;
+            if (loadLobbyTimer < 0)
+            {
+                loadingLobby = false;
+                loadLobbyTimer = loadLobbyDelay;
+                SceneManager.LoadScene("Lobby");
+                if (winnings >= 0)
+                {
+                    AddToMoney(winnings);
+                }
+                else
+                {
+                    SubtractFromMoney(winnings);
+                }
+                winnings = 0;
+            }
+        }
     }
 
     public void SelectGame(string game)
@@ -61,23 +81,10 @@ public class GameManager : MonoBehaviour
 
     public void LoadLobby()
     {
-        StartCoroutine(LoadLobbyWithDelay());
+        loadingLobby = true;
     }
 
-    IEnumerator LoadLobbyWithDelay()
-    {
-        yield return new WaitForSeconds(loadLobbyDelay);
-        SceneManager.LoadScene("Lobby");
-        if (winnings >= 0)
-        {
-            AddToMoney(winnings);
-        }
-        else
-        {
-            SubtractFromMoney(winnings);
-        }
-        winnings = 0;
-    }
+
 
     public int GetMoney()
     {
