@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
 
 
 
+
+
     private void SetUpSingleton()
     {
         if (FindObjectsOfType(GetType()).Length > 1)
@@ -59,6 +61,11 @@ public class GameManager : MonoBehaviour
                 winnings = 0;
             }
         }
+    }
+
+    public int GetGamesLeft()
+    {
+        return chancesToPlay - gamesPlayed;
     }
 
     public void SelectGame(string game)
