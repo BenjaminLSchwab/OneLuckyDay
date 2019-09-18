@@ -124,14 +124,12 @@ public class BetManager : MonoBehaviour
     {
     	chosenFighter = fighter1;
     	Destroy(bettingUI);
-        gameManager.SendMessage("SubtractFromMoney", betAmount);
     }
 
     public void BetOnFighter2()
     {
     	chosenFighter = fighter2;
     	Destroy(bettingUI);
-        gameManager.SendMessage("SubtractFromMoney", betAmount);
     }
 
     public void EndGame()

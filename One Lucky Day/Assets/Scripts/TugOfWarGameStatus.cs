@@ -18,11 +18,22 @@ public class TugOfWarGameStatus : MonoBehaviour
 	Rope rope;
     [SerializeField] AudioClip sizzleSound;
     [SerializeField] GameObject endScreen;
+    [SerializeField] GameObject alien1;
+    [SerializeField] GameObject alien2;
 
 	void Start()
 	{
 		gameManager = FindObjectOfType<GameManager>();
 		rope = FindObjectOfType<Rope>();
+        var rand = Random.Range(1,3);
+        if(rand == 1)
+        {
+            alien1.SetActive(true);
+        }
+        else
+        {
+            alien2.SetActive(true);
+        }
 	}
 
 	void Update()
@@ -35,7 +46,6 @@ public class TugOfWarGameStatus : MonoBehaviour
         if(rope.transform.position.x <= distanceToWin*-1)
         {
             gameOver = true;
-	    	gameManager.SendMessage("AddToWinnings", prizeMoney);	
             FindObjectOfType<TugOfWarOpponent>().gameObject.SendMessage("Die");
             StartCoroutine("Win");
             if(!GetComponent<AudioSource>().isPlaying)
@@ -65,6 +75,7 @@ public class TugOfWarGameStatus : MonoBehaviour
             endScreen.SetActive(true);
             endScreen.transform.Find("Message").GetComponent<Text>().text = "You won!";
             endScreen.transform.Find("Message").GetComponent<Text>().color = Color.green;
+            gameManager.SendMessage("AddToWinnings", prizeMoney);   
             yield return new WaitForSeconds(3);
             gameManager.SendMessage("LoadLobby");
         }
