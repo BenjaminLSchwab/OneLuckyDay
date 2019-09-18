@@ -143,7 +143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &148869888
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1031,6 +1031,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameName: TugOfWar
   indicator: {fileID: 499381205}
+  gameCost: 10
 --- !u!61 &1618734363
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1259,6 +1260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameName: Race
   indicator: {fileID: 271716454}
+  gameCost: 10
 --- !u!61 &1779793548
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1404,6 +1406,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameName: CockFight
   indicator: {fileID: 880951706}
+  gameCost: 10
 --- !u!61 &1795974764
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1527,6 +1530,7 @@ GameObject:
   - component: {fileID: 1959401558}
   - component: {fileID: 1959401557}
   - component: {fileID: 1959401556}
+  - component: {fileID: 1959401560}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1618,6 +1622,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1959401560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959401555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e3dd8ae5757cb4f8a77ace300bb32e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayTime: 2
+  displayText: {fileID: 148869889}
 --- !u!1001 &6867903361050349881
 PrefabInstance:
   m_ObjectHideFlags: 0

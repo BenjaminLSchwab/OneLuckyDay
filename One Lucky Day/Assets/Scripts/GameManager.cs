@@ -2,25 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] int playerStartingMoney = 42;
     [SerializeField] int chancesToPlay = 10;
     [SerializeField] float loadLobbyDelay = 1.5f;
+    [SerializeField] float loadGameDelay = 2f;
     int playerMoney = 0;
     int gamesPlayed = 0;
     private string selectedGame = "";
     float loadLobbyTimer = 0;
+    float loadGameTimer = 0;
     bool loadingLobby = false;
-    int loadLobbyCount = 0;
+    bool loadingGame = false;
+    
     int winnings = 0;
+    public int gameCost;
     // Start is called before the first frame update
     void Start()
     {
         SetUpSingleton();
         playerMoney = playerStartingMoney;
         loadLobbyTimer = loadLobbyDelay;
+        loadGameTimer = loadGameDelay;
     }
 
 
@@ -52,15 +58,39 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene("Lobby");
                 if (winnings >= 0)
                 {
-                    AddToMoney(winnings);
+                    StartCoroutine(AddMoneyWithDelay());
                 }
                 else
                 {
                     SubtractFromMoney(winnings);
                 }
-                winnings = 0;
+                
             }
         }
+        else if (loadingGame)
+        {
+            loadGameTimer -= Time.deltaTime;
+            if (loadGameTimer < 0)
+            {
+                loadingGame = false;
+                loadGameTimer = loadGameDelay;
+                if (selectedGame == "")
+                {
+                    Debug.Log("No game selected.");
+                }
+                else
+                {
+                    gamesPlayed++;
+                    SceneManager.LoadScene(selectedGame);
+                }
+            }
+        }
+    }
+
+    IEnumerator AddMoneyWithDelay()
+    {
+        yield return new WaitForSeconds(1);
+        AddToMoney(winnings);
     }
 
     public int GetGamesLeft()
@@ -75,22 +105,14 @@ public class GameManager : MonoBehaviour
 
     public void LoadGame()
     {
-        if (selectedGame == "")
-        {
-            Debug.Log("No game selected.");
-        }
-        else
-        {
-            gamesPlayed++;
-            SceneManager.LoadScene(selectedGame);
-        }
+        if (loadingGame) return;
+        SubtractFromMoney(gameCost);
+        loadingGame = true;
     }
 
     public void LoadLobby()
     {
         loadingLobby = true;
-        loadLobbyCount++;
-        Debug.Log("Count : " + loadLobbyCount);
     }
 
 
@@ -108,11 +130,18 @@ public class GameManager : MonoBehaviour
     public void AddToMoney(int amount)
     {
         playerMoney += amount;
+        winnings = 0;
+        var disp = FindObjectOfType<DifferenceDisplay>();
+        disp.displayText.text = amount.ToString();
+        disp.SendMessage("SetDisplayActive");
     }
 
     public void SubtractFromMoney(int amount)
     {
         playerMoney -= amount;
+        var disp = FindObjectOfType<DifferenceDisplay>();
+        disp.displayText.text = amount.ToString();
+        disp.SendMessage("SetDisplayActive");
     }
 
     public void AddToWinnings(int amount)

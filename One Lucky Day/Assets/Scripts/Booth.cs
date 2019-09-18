@@ -6,6 +6,7 @@ public class Booth : MonoBehaviour
 {
     [SerializeField] string gameName = "";
     [SerializeField] GameObject indicator;
+    [SerializeField] int gameCost = 10;
     GameManager gameManager;
     IndicatorManager indicatorManager;
     // Start is called before the first frame update
@@ -24,6 +25,7 @@ public class Booth : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         gameManager.SendMessage("SelectGame", gameName);
+        gameManager.gameCost = gameCost;
         indicatorManager.SendMessage("TurnOffAllIndicators");
         indicator.SetActive(true);
     }
