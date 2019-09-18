@@ -13,14 +13,47 @@ public class BetManager : MonoBehaviour
 	//cached component reference
 	Canvas canvas;
     GameObject gameManager;
-	[SerializeField] GameObject fighter1;
-	[SerializeField] GameObject fighter2;
+    [SerializeField] GameObject rabbit;
+    [SerializeField] GameObject turtle;
+    [SerializeField] GameObject lizard;
+	public GameObject fighter1;
+	public GameObject fighter2;
 	public GameObject chosenFighter;
 	[SerializeField] GameObject bettingUI;
 	[SerializeField] GameObject endScreen;
 
     void Start()
     {
+        var rand = Random.Range(1,4);
+        if(rand == 1)
+        {
+            fighter1 = Instantiate(rabbit);
+        }
+        else if(rand == 2)
+        {
+            fighter1 = Instantiate(turtle);
+        }
+        else
+        {
+            fighter1 = Instantiate(lizard);
+        }
+        rand = Random.Range(1,4);
+        if(rand == 1)
+        {
+            fighter2 = Instantiate(rabbit);
+        }
+        else if(rand == 2)
+        {
+            fighter2 = Instantiate(turtle);
+        }
+        else
+        {
+            fighter2 = Instantiate(lizard);
+        }
+        fighter1.transform.position = GameObject.Find("Spawn1").transform.position;
+        fighter2.transform.position = GameObject.Find("Spawn2").transform.position;
+        fighter1.GetComponent<CockFightFighter>().opponent = fighter2;
+        fighter2.GetComponent<CockFightFighter>().opponent = fighter1;
         gameManager = FindObjectOfType<GameManager>().gameObject;
         canvas = FindObjectOfType<Canvas>();
         LoadUI();
@@ -72,6 +105,7 @@ public class BetManager : MonoBehaviour
             endScreen.SetActive(true);
             endScreen.transform.Find("ResultMessage").GetComponent<Text>().text = "Your fighter won!";
             endScreen.transform.Find("WinningsMessage").GetComponent<Text>().text = "You made $" + betAmount + ".";
+            endScreen.transform.Find("Image").GetComponent<Image>().sprite = chosenFighter.GetComponent<SpriteRenderer>().sprite;
         }
     }
 

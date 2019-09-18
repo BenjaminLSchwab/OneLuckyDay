@@ -12,13 +12,13 @@ public class CockFightFighter : MonoBehaviour
 	[SerializeField] float damage;
 	[SerializeField] float moveSpeed;
 	[SerializeField] float stoppingDistance;
-	[SerializeField] int maxHealth;
+	public int maxHealth;
 
 	//state
 	float decisionTimer;
 	float moveTimer;
 	float lastAttackTime;
-	int health;
+	public int health;
 	string mode;
 	Vector2 moveOffset;
 
@@ -26,8 +26,9 @@ public class CockFightFighter : MonoBehaviour
 	Rigidbody2D rb;
 	Animator animator;
     BetManager betManager;
-	[SerializeField] GameObject opponent;
+	public GameObject opponent;
     [SerializeField] GameObject blood;
+    [SerializeField] AudioClip grunt;
 
     void Start()
     {
@@ -138,12 +139,12 @@ public class CockFightFighter : MonoBehaviour
     {
     	health -= damageTaken;
         var bloodEffect = Instantiate(blood);
-        bloodEffect.transform.position = transform.position;
+        bloodEffect.transform.position = transform.position + new Vector3(0,0,-1);
         Destroy(bloodEffect, 0.7f);
-    	Debug.Log(gameObject.name + " Health:" + health);
+        GetComponent<AudioSource>().clip = grunt;
+        GetComponent<AudioSource>().Play();
     	if(health <= 0)
     	{
-    		Debug.Log(opponent.name + " wins");
             Destroy(gameObject);
     	}
     }
