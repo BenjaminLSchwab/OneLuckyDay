@@ -31,6 +31,7 @@ public class Window : MonoBehaviour
             if (gameOverTimer < 0)
             {
                 FindObjectOfType<GameManager>().LoadLobby();
+                gameOver = false;
             }
         }
 

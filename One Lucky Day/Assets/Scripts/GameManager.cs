@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private string selectedGame = "";
     float loadLobbyTimer = 0;
     bool loadingLobby = false;
-
+    int loadLobbyCount = 0;
     int winnings = 0;
     // Start is called before the first frame update
     void Start()
@@ -82,6 +82,8 @@ public class GameManager : MonoBehaviour
     public void LoadLobby()
     {
         loadingLobby = true;
+        loadLobbyCount++;
+        Debug.Log("Count : " + loadLobbyCount);
     }
 
 

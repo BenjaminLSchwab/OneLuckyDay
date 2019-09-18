@@ -11,6 +11,7 @@ public class TugOfWarGameStatus : MonoBehaviour
 
 	//state
 	public bool gameOver;
+    bool loadedLobby = false;
 
 	//cached component reference
 	GameManager gameManager;
@@ -58,11 +59,16 @@ public class TugOfWarGameStatus : MonoBehaviour
 
     IEnumerator Win()
     {
-        endScreen.SetActive(true);
-        endScreen.transform.Find("Message").GetComponent<Text>().text = "You won!";
-        endScreen.transform.Find("Message").GetComponent<Text>().color = Color.green;
-        yield return new WaitForSeconds(3);
-        gameManager.SendMessage("LoadLobby");
+        if (!loadedLobby)
+        {
+            loadedLobby = true;
+            endScreen.SetActive(true);
+            endScreen.transform.Find("Message").GetComponent<Text>().text = "You won!";
+            endScreen.transform.Find("Message").GetComponent<Text>().color = Color.green;
+            yield return new WaitForSeconds(3);
+            gameManager.SendMessage("LoadLobby");
+        }
+
     }
 
     IEnumerator Lose()
