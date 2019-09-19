@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f2597bef35c5b4ba2537907dae1b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetWorth: 600
+  targetWorth: 500
   waypoints: []
   hitSound: {fileID: 8300000, guid: 2f725924b8791b94384be68565a533db, type: 3}
   hitSoundVolume: 1

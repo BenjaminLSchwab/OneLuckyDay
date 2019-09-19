@@ -8,6 +8,7 @@ public class SlideshowObject : MonoBehaviour
     [SerializeField] float time = 5f;
     [SerializeField] GameObject nextObject;
     [SerializeField] bool loadLobbyWhenDone = false;
+    [SerializeField] bool exitGameWhenDone = false;
     float timer = 0;
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,10 @@ public class SlideshowObject : MonoBehaviour
             if (loadLobbyWhenDone)
             {
                 SceneManager.LoadScene("Lobby");
+            }
+            if (exitGameWhenDone)
+            {
+                Application.Quit();
             }
             gameObject.SetActive(false);
         }

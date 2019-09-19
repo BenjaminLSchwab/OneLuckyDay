@@ -138,10 +138,11 @@ MonoBehaviour:
   moveDelay: 0.2
   attackDelay: 2
   attackRange: 3
-  damage: 10
-  moveSpeed: 5
+  damage: 12
+  moveSpeed: 6
   stoppingDistance: 2
-  maxHealth: 100
+  maxHealth: 90
+  health: 0
   opponent: {fileID: 0}
   blood: {fileID: 8228905883097854533, guid: 0e2955cb331edc74288c9ed3cc1c7772, type: 3}
   grunt: {fileID: 8300000, guid: 0e8c2e2116a17444a8ed210af46df90c, type: 3}
