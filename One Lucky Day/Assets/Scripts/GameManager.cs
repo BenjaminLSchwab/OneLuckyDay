@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
 
     void CheckForGameOver()
     {
-        if (gamesPlayed > chancesToPlay)
+        if (gamesPlayed == chancesToPlay)
         {
             if (playerMoney > moneyToWin)
             {
@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadGame()
     {
-        if (loadingGame || gamesPlayed > chancesToPlay) return;
+        if (loadingGame || gamesPlayed == chancesToPlay) return;
         if (playerMoney >= gameCost)
         {
             SubtractFromMoney(gameCost);

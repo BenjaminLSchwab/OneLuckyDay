@@ -2222,7 +2222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f3be764fd577df44b5df1f0f8046ba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  betAmount: 10
+  betAmount: 1500
   rabbit: {fileID: 4689518122435259773, guid: cabdd52c28a325f46b6a2f0243c1ce59, type: 3}
   turtle: {fileID: 1371721839562311440, guid: 1f79cd7374d03ee46a97bb49dc496c67, type: 3}
   lizard: {fileID: 7469277912259482236, guid: fccfd4037269ec640a107cdb7f9bef18, type: 3}

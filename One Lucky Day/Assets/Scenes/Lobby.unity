@@ -1265,7 +1265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameName: TugOfWar
   indicator: {fileID: 499381205}
-  gameCost: 100
+  gameCost: 200
 --- !u!61 &1618734363
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1544,7 +1544,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1766480610}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.64, y: 0.86, z: -10}
+  m_LocalPosition: {x: 0.48, y: 0.86, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1730,7 +1730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameName: CockFight
   indicator: {fileID: 880951706}
-  gameCost: 150
+  gameCost: 300
 --- !u!61 &1795974764
 BoxCollider2D:
   m_ObjectHideFlags: 0

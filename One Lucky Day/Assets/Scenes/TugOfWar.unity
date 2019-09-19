@@ -1540,7 +1540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceToWin: 2.5
-  prizeMoney: 20
+  prizeMoney: 650
   gameOver: 0
   sizzleSound: {fileID: 8300000, guid: 2824879e1caf9da4e9594e4e6387ef8a, type: 3}
   endScreen: {fileID: 209725996}
