@@ -9,11 +9,13 @@ public class Booth : MonoBehaviour
     [SerializeField] int gameCost = 10;
     GameManager gameManager;
     IndicatorManager indicatorManager;
+    CostDisplay costDisplay;
     // Start is called before the first frame update
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         indicatorManager = FindObjectOfType<IndicatorManager>();
+        costDisplay = FindObjectOfType<CostDisplay>();
     }
 
     // Update is called once per frame
@@ -26,6 +28,7 @@ public class Booth : MonoBehaviour
     {
         gameManager.SendMessage("SelectGame", gameName);
         gameManager.gameCost = gameCost;
+        costDisplay.SetCost(gameCost);
         indicatorManager.SendMessage("TurnOffAllIndicators");
         indicator.SetActive(true);
     }

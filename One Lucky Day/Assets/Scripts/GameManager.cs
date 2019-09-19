@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] float loadLobbyDelay = 1.5f;
     [SerializeField] float loadGameDelay = 2f;
     [SerializeField] int moneyToWin = 10000;
+    [SerializeField] AudioClip chingNoise;
+    [SerializeField] float chingVolume = 1f;
+    [SerializeField] AudioClip spendNoise;
+    [SerializeField] float spendVolume = 1f;
     int playerMoney = 0;
     int gamesPlayed = 0;
     private string selectedGame = "";
@@ -49,6 +53,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Restart();
+        }else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Exit();
+        }
         if (loadingLobby)
         {
             loadLobbyTimer -= Time.deltaTime;
@@ -124,13 +135,29 @@ public class GameManager : MonoBehaviour
     public void LoadGame()
     {
         if (loadingGame || gamesPlayed > chancesToPlay) return;
-        SubtractFromMoney(gameCost);
-        loadingGame = true;
+        if (playerMoney >= gameCost)
+        {
+            SubtractFromMoney(gameCost);
+            loadingGame = true;
+        }
+
     }
 
     public void LoadLobby()
     {
         loadingLobby = true;
+    }
+
+    public void Restart()
+    {
+        playerMoney = playerStartingMoney;
+        gamesPlayed = 0;
+        SceneManager.LoadScene("Lobby");
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 
 
@@ -147,6 +174,7 @@ public class GameManager : MonoBehaviour
 
     public void AddToMoney(int amount)
     {
+        AudioSource.PlayClipAtPoint(chingNoise, transform.position, chingVolume);
         playerMoney += amount;
         winnings = 0;
         var disp = FindObjectOfType<DifferenceDisplay>();
@@ -156,6 +184,7 @@ public class GameManager : MonoBehaviour
 
     public void SubtractFromMoney(int amount)
     {
+        AudioSource.PlayClipAtPoint(spendNoise, transform.position, spendVolume);
         playerMoney -= amount;
         var disp = FindObjectOfType<DifferenceDisplay>();
         disp.displayText.text = "-" + amount.ToString();

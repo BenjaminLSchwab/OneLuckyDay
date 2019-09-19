@@ -983,8 +983,28 @@ PrefabInstance:
     - target: {fileID: 7800359760123491129, guid: 8f84796b5a15b5a4396e2c7fe5b60e81,
         type: 3}
       propertyPath: chancesToPlay
-      value: 2
+      value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 7800359760123491129, guid: 8f84796b5a15b5a4396e2c7fe5b60e81,
+        type: 3}
+      propertyPath: playerStartingMoney
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800359760123491129, guid: 8f84796b5a15b5a4396e2c7fe5b60e81,
+        type: 3}
+      propertyPath: loadGameDelay
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800359760123491129, guid: 8f84796b5a15b5a4396e2c7fe5b60e81,
+        type: 3}
+      propertyPath: spendNoise
+      value: 
+      objectReference: {fileID: 8300000, guid: ec24981ec9acd1d49bb15e786ddcc1a6, type: 3}
+    - target: {fileID: 7800359760123491129, guid: 8f84796b5a15b5a4396e2c7fe5b60e81,
+        type: 3}
+      propertyPath: chingNoise
+      value: 
+      objectReference: {fileID: 8300000, guid: 7b2db83a44d67a7409e159c5359a6e53, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f84796b5a15b5a4396e2c7fe5b60e81, type: 3}
 --- !u!1 &1798033887

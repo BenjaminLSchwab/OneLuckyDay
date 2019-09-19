@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 1831191889456596724}
   - component: {fileID: 3381901720319526615}
   m_Layer: 0
-  m_Name: Target
+  m_Name: SmallTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,7 @@ Transform:
   m_GameObject: {fileID: 1831191889456596722}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.36766642, y: -1.0626273, z: -1.9296875}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children:
   - {fileID: 1831191888880677257}
   m_Father: {fileID: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30f2597bef35c5b4ba2537907dae1b15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetWorth: 600
+  targetWorth: 1200
   waypoints: []
   hitSound: {fileID: 8300000, guid: 2f725924b8791b94384be68565a533db, type: 3}
   hitSoundVolume: 1

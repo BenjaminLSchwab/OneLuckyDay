@@ -2313,10 +2313,12 @@ MonoBehaviour:
   path: {fileID: 4243510791501369100, guid: 70d1b993e7315c543ac84c7b9df834ec, type: 3}
   targets:
   - {fileID: 1831191889456596722, guid: 1dfa9baa5639eb747bd95d356072772e, type: 3}
+  - {fileID: 1831191889456596722, guid: 3e9b9be654cb12346b3647927298dd87, type: 3}
   - {fileID: 1831191889456596722, guid: 1dfa9baa5639eb747bd95d356072772e, type: 3}
+  - {fileID: 1831191889456596722, guid: 3e9b9be654cb12346b3647927298dd87, type: 3}
   - {fileID: 1831191889456596722, guid: 1dfa9baa5639eb747bd95d356072772e, type: 3}
-  targetSpeed: 1
-  targetSpacing: 2
+  targetSpeed: 1.5
+  targetSpacing: 2.5
 --- !u!4 &1543542368
 Transform:
   m_ObjectHideFlags: 0
